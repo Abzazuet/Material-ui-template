@@ -1,15 +1,36 @@
-import Button from "@mui/material/Button";
-import ThreeDRotation from '@mui/icons-material/ThreeDRotation'
+import * as React from 'react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Checkbox from '@mui/material/Checkbox';
+import { green, orange } from '@mui/material/colors';
 
-function App() {
+const outerTheme = createTheme({
+  palette: {
+    secondary: {
+      main: orange[500],
+    },
+  },
+});
+
+export default function App() {
   return (
-  <>
-  <Button variant="contained" disableElevation color="success" size="small">Hello world</Button>
-  <Button variant="text" color="secondary">Hello world</Button>
-  <Button variant="outlined" color="error">Hello world</Button>
-  <ThreeDRotation />
-  </>
+    <ThemeProvider theme={outerTheme}>
+      <Checkbox defaultChecked color="secondary" />
+      <ThemeProvider
+        theme={(theme) =>
+          createTheme({
+            ...theme,
+            palette: {
+              ...theme.palette,
+              primary: {
+                main: green[500],
+              },
+            },
+          })
+        }
+      >
+        <Checkbox defaultChecked />
+        <Checkbox defaultChecked color="secondary" />
+      </ThemeProvider>
+    </ThemeProvider>
   );
 }
-
-export default App;
